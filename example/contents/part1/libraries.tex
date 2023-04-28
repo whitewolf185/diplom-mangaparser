@@ -5,10 +5,12 @@
 
 \subsubsection{pdfcpu}
 Pdfcpu \cite{pdfcpu-cite} --- пакет, написанный на ЯП GO, яляющийся мощным сборником pdf файлов. Представляет интферфейс для создания сложноструктурированных pdf файлов.
+
 В данном пакете возможно создавать абсолютно любые pdf файлы с различными метаданными документа, начиная с содержания, заканчивая указыванием автора написания документа.
 Библиотека способна также использовать различные картинки различных разрешений, позволяя менять их размер, цвет, прозрачность и другие параметры.
+
 Пакет был взят в использование потому, что предоставляется разработчиками удобный и понятный интферфейс для собирания большого количество картинок в pdf файл. 
-Также модуль отличается своей быстротой исполнения поставленных задач. Небольшая выдержка кода может продемонстрировать простоту использования пакета.
+Также модуль отличается своей быстротой исполнения поставленных задач. Рисунок~\ref{libs-pdfcpu} может продемонстрировать простоту использования пакета.
 
 \begin{figure}
 \begin{lstlisting}[language=go]
@@ -24,6 +26,69 @@ func CreatePDFFromImagesDir(imagesDirPath string, outputPath string) error {
 	return nil
 }
 \end{lstlisting}
-\caption{Демонстрация простоты интерфейсы pdfcpu}
+\caption{Демонстрация работы интерфейса pdfcpu}
 \label{libs-pdfcpu}
 \end{figure}
+
+
+\subsubsection{goquery}
+Goquery \cite{goquery-cite} --- пакет, написанный на ЯП GO, который способен выполнять задачи библиотеки jQuery \cite{jquery-cite}. 
+
+Данный пакет используется для того, чтобы парсить DOM дерево полученного HTML файла. С ним возможно быстро и удобно получить нужную информацию с любого сайта.
+После реверс-инженеринга, благодаря этому покету, быстро и просто достается информация о картинках, классифицируется на разделы и подразделы (например, группировка на главы).
+
+\begin{figure}
+	\begin{lstlisting}[language=go]
+	func (mlb mangaLibController) getChapterID(doc *goquery.Document) (string, error) {
+		result, ok := doc.Find("#comments").Attr("data-post-id")
+		if !ok {
+			return "", errors.Wrap(customerrors.ErrEmptyAttr, "mangalib: data-post-id")
+		}
+		return result, nil
+	}
+	\end{lstlisting}
+	\caption{Демонстрация работы пакета goquery}
+	\label{libs-goquery}
+\end{figure}
+
+Как видно из рисунка~\ref{libs-goquery}, видно, что используются команды jQuery для получения информации о главе. Далее эта глава используется дальше, чтобы достать картинки этой главы.
+
+\subsubsection{jet}
+Go-jet \cite{jet-cite} --- пакет, написанный на ЯП GO, являющийся конструктором SQL запросов в БД.
+
+С помощью этой библиотеки возможно собирать любые SQL запросы, избегая уязвимость --- SQL-инъекцию. 
+Этот пакет подключается к БД и генерирует код на языке GO, при помощи которого можно собирать различные SQL запросы.
+От инъекции помогает избавиться тот факт, что абсолютно весь запрос делается при помощи конструктора, в процессе сбора которого есть постоянные проверки на соответствие данных,
+поступающих в процесс создания запроса.
+Также стоит заметить, что сама возможность собирать запрос из различных кусочков, может очень сильно помочь при составлении денамического запроса, который так или иначе зависит от поступивших на вход параметров.
+
+Именно по этой причине был выбран данный пакет.
+Как можно видеть из рисунка~\ref{libs-jet}, собирается SQL запрос в зависимости от пришедших на вход параметров. 
+Таким образом, условная секция запроса может варьироваться.
+
+\begin{figure}
+	\begin{lstlisting}[language=go]
+		func (perC personController) GetEmailByID(ctx context.Context, person domain.PersonInfo) (string, error){
+			selectStmt := table.Persons.SELECT(table.Persons.Email)
+			var whereStmt postgres.BoolExpression
+		
+			personID, _ := uuid.Parse(person.PersonID)
+			switch {
+			case personID != uuid.UUID{} && personID != uuid.Nil:
+				whereStmt = table.Persons.ID.EQ(postgres.UUID(personID))
+			case person.TelegramID > 0:
+				whereStmt = table.Persons.TelegramID.EQ(postgres.Int64(person.TelegramID))
+			default:
+				return "", customerrors.ErrEmailsNotFound
+			}
+			stmt, args := selectStmt.WHERE(whereStmt).Sql()
+		
+			...
+		
+			return email, nil
+		}
+	\end{lstlisting}
+	\caption{Демонстрация работы пакета jet}
+	\label{libs-jet}
+\end{figure}
+
