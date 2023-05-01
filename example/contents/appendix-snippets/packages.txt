@@ -1,0 +1,33 @@
++---api
+|   +---domain
+|   +---middleware
+|   \---router
++---cmd
++---docs
++---internal
+|   +---app
+|   +---config
+|   |   \---flags
+|   +---gen
+|   |   \---manga_parser
+|   |       \---public
+|   |           +---enum
+|   |           +---model
+|   |           \---table
+|   +---pkg
+|   |   +---err_controller
+|   |   +---mailer
+|   |   |   \---file_test
+|   |   +---parse
+|   |   |   +---http_requester
+|   |   |   \---mangalib
+|   |   |       \---mock
+|   |   +---pdf_creator
+|   |   |   +---mock
+|   |   |   \---pdf_merger
+|   |   |       \---imgs_1test
+|   |   \---utils
+|   \---repository
++---migrations
+\---pkg
+    \---custom_errors
