@@ -1,0 +1,19 @@
+\appendixsection{Приложение к изучению данных}
+
+На рисунке~\ref{html-add} демонстрируется bash скрипт, который можно исполнить для получения HTML кода анализируемой страницы сайта.
+
+\begin{figure}
+    \lstinputlisting[language=bash]{appendix-snippets/curl-get-site.sh}
+    \caption{Пример HTML кода получения страницы сайта}
+    \label{html-add}
+\end{figure}
+
+На рисунке~\ref{image-pattern-add} демонстрируется шаблон, по которому формируется ссылка на картику сайта mangalib.me
+
+\begin{figure}
+    \begin{lstlisting}[language=go]
+        https://img33.imgslib.link//manga/{manga-name}/chapters/{chapter-hash}/{image-hash}
+    \end{lstlisting}
+    \caption{Шаблон конфигурируемой ссылки для конкретной картинки}
+    \label{image-pattern-add}
+\end{figure}
