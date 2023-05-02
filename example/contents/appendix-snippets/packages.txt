@@ -17,7 +17,6 @@
 |   +---pkg
 |   |   +---err_controller
 |   |   +---mailer
-|   |   |   \---file_test
 |   |   +---parse
 |   |   |   +---http_requester
 |   |   |   \---mangalib
@@ -25,7 +24,6 @@
 |   |   +---pdf_creator
 |   |   |   +---mock
 |   |   |   \---pdf_merger
-|   |   |       \---imgs_1test
 |   |   \---utils
 |   \---repository
 +---migrations
