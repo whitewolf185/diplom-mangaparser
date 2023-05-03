@@ -38,4 +38,4 @@
 \RequirePackage{21-math}
 \RequirePackage{22-algorithms}
 
-\makeglossaries
+

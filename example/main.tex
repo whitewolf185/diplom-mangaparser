@@ -5,8 +5,9 @@
 \theme{Сервис поиска, классификации и обработки тематических изображений в интернете}
 
 \supervisor{Филимонов Николай Сергеевич}
-\firstConsultant{}
-\secondConsultant{}
+\firstConsultant{---}
+\secondConsultant{---}
+\reviewer{---}
 
 \faculty{№ 8 <<Компьютерные науки и прикладная математика>>}
 \department{806}
@@ -14,7 +15,7 @@
 \profile{Информатика}
 
 % Здесь необходим разрыв строки из-за особенностей титульной страницы
-\departmentFullName{№ 806 <<Вычислительная математика \\ и программирование>>}
+\departmentFullName{№ 806 }
 \headOfDepartment{Крылов Сергей Сергеевич}
 
 % Дата. Оставляем пустое место для дня
@@ -22,6 +23,8 @@
 
 \input{contents/glossary}
 \input{contents/terms}
+\makeglossaries
+\glsaddall
 
 \addbibresource{main.bib}
 
@@ -29,9 +32,6 @@
 \makeatletter
 \g@addto@macro\@floatboxreset\centering
 \makeatother
-
-% мои настройки
-\lstset{breakatwhitespace=false}
 
 \begin{document}
     \maketitle
