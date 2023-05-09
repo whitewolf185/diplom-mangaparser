@@ -1,0 +1,15 @@
+env:
+  - name: email_account
+    value: example@examp.exe
+  - name: email_password
+    value: password
+  - name: db_dsn
+    value: postgres_credit_info
+
+  - name: http_retry_duration
+    value: 1s
+
+  - name: listen_port
+    value: 80
+  - name: server_ip
+    value: localhost

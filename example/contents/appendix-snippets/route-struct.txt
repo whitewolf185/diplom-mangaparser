@@ -1,0 +1,10 @@
++---api
+|   \---manga
+|       +---GetChapterList
+|       +---GetChapterPages
+|       +---GetChapterPagesPDF
+|       +---SendToEbook
+|   \---login
+|       +---Register
++---docs
++---docs-local

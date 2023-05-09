@@ -1,0 +1,42 @@
+\appendixsection{Пайплайн проекта}
+
+На рисунке~\ref{flags-func-add} изображен снипет кода, в котором написана функция, при помощи которой происходит забор всех необходимых секретов из yaml файла.
+
+\begin{figure}
+    \begin{lstlisting}[language=go]
+        type Env struct {
+            Name string `yaml:"name"`
+            Value string `yaml:"value"`
+        }
+        type Configs struct {
+            Envs []Env `yaml:"env"`
+        }
+        const defaultEnvFileName = "values_local.yaml"
+        var (used bool = false
+            currentFileDir string)
+        func InitServiceFlags() {
+            envFileName := os.Getenv("ENV_FILE_NAME")
+            ...
+            var yamlResult Configs
+            yamlData, err := os.ReadFile(currentFileDir + "/" + envFileName)
+            if err != nil {
+                panic(err)
+            }
+            //... unmarshaling
+            for _, v := range yamlResult.Envs {
+                os.Setenv(v.Name, v.Value)
+            }
+            used = true
+        }
+    \end{lstlisting}
+    \caption{Парсинг секретов в env переменные}
+    \label{flags-func-add}
+\end{figure}
+
+На рисунке~\ref{yaml-secret-add} yaml файла, в котором содержатся секреты сервиса для инициализации проекта.
+
+\begin{figure}
+    \lstinputlisting[language=go]{appendix-snippets/values_local.yaml}
+    \caption{YAML файл с секретами сервиса}
+    \label{yaml-secret-add}
+\end{figure}
